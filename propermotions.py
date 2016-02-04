@@ -1,6 +1,6 @@
 from astrodbkit.astrodbkit import astrodb
 import numpy as np
-import RADEC 
+import shortnamegenerator 
 db=astrodb.get_db('/Users/jamescrook/Documents/Modules/BDNYC.db')
 
 #ADD COMMENTS and generate shortnames and update that way
@@ -12,7 +12,7 @@ def generate_sourceid(data):
     
     #For objects without shortnames
     for (name) in data:
-        shortname = RADEC.get_shortname(name)
+        shortname = shortnamegenerator.get_shortname(name)
         if shortname != '':
             try:
                 ida=db.query("select id from sources where shortname='{}'".format(shortname))[0]
@@ -29,11 +29,11 @@ def generate_sourceid(data):
     
 #adds new faherty data
 def add_new_data():
-    db.add_data('new.txt', 'proper_motions', delimiter=',')
+    db.add_data('/Users/jamescrook/Documents/Modules/propermotions/new.txt', 'proper_motions', delimiter=',')
     
 #adds old faherty data
 def add_old_data():
-    db.add_data('old.txt', 'proper_motions', delimiter='|')
+    db.add_data('/Users/jamescrook/Documents/Modules/propermotions/old.txt', 'proper_motions', delimiter='|')
 
 #updates publication IDs
 #FOR SOME REASON THIS ISNT UPDATING STUFF?
